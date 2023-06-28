@@ -63,12 +63,7 @@ $objPasajero->insertar();*/
      * @return int La opción seleccionada.
      */
     function opcionesMenu(){
-        echo "\n----------MENU----------\n
-        1) Cargar información\n
-        2) Modificar información\n
-        3) Eliminar información\n
-        4) Mostrar datos\n
-        5) Salir\n";
+        echo "\n----------MENU----------\n1)Cargar información\n2)Modificar información\n3)Eliminar información\n4)Mostrar datos\n5)Salir\n";
         $respuestaMenu = trim(fgets(STDIN));
         while($respuestaMenu < 1 || $respuestaMenu > 5 || !ctype_digit($respuestaMenu)){
             echo "Error: seleccione una opción válida (1-4): ";
@@ -223,7 +218,7 @@ $objPasajero->insertar();*/
             
             
             if($objResponsable->buscar($nroEmpleado)){
-                $destino = readline("Ingrese el destino del pasajero: ");
+                $destino = readline("Ingrese el destino: ");
                 $destino = validacionString($destino);
                 $cantMax = readline("Ingrese la cantidad maxima de pasajeros: ");
                 $cantMax = validacionEnteroPositivo($cantMax);
@@ -553,24 +548,36 @@ function mostrarEmpresa(){
     $colEmpresa = $objEmpresa->listar();
     $string = arrayString($colEmpresa);
     echo "\n" . $string;
+    if(empty($string)){
+        echo "No hay empresa ingresada";
+    }
 }
 function mostrarResponsable(){
     $objResponsable = new Responsable();
     $colResponsable = $objResponsable->listar();
     $string = arrayString($colResponsable);
     echo "\n" . $string;
+    if(empty($string)){
+        echo "No hay reponsables ingresados";
+    }
 }
 function mostrarViaje(){
     $objViaje = new Viaje();
     $colViaje = $objViaje->listar();
     $string = arrayString($colViaje);
     echo "\n" . $string;
+    if(empty($string)){
+        echo "No hay viajes ingresados";
+    }
 }
 function mostrarPasajero(){
     $objPasajero = new Pasajero();
     $colPasajero = $objPasajero->listar();
     $string = arrayString($colPasajero);
     echo "\n" . $string;
+    if(empty($string)){
+        echo "No hay pasajeros ingresados";
+    }
 }
 
 /**

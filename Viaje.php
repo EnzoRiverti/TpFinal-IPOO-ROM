@@ -8,7 +8,7 @@ class Viaje{
     private $responsable;
     private $importe;
     private $pasajeros;
-    private $idEmpresa;
+    
     private $mensajeoperacion;
     //METODOS
     public function __construct(){
@@ -19,7 +19,7 @@ class Viaje{
         $this->responsable = "";
         $this->importe = "";
         $this->pasajeros = array();
-        $this->idEmpresa = "";
+        
         
     }
 
@@ -168,6 +168,7 @@ class Viaje{
                         $this->setIdEmpresa($row2['idempresa']);
                         $this->setResponsable($row2['rnumeroempleado']);
                         $this->setImporte($row2['vimporte']);
+                        $this->cargar($idViaje,$row2['vdestino'], $row2['vcantmaxpasajeros'],$row2['idempresa'],['rnumeroempleado'],['vimporte']);
                         $resp= true;
                     }				
                 
@@ -260,8 +261,10 @@ class Viaje{
                         $idViaje=$row2['idviaje'];
                         $destino=$row2['vdestino'];
                         $cantMax=$row2['vcantmaxpasajeros'];
-                        $idEmpresa=$row2['idempresa'];
-                        $responsable=$row2['rnumeroempleado'];
+                        $idEmpresa = new Empresa();
+                        $idEmpresa->buscar($row2['idempresa']);
+                        $responsable = new Responsable();
+                        $responsable->buscar($row2['rnumeroempleado']);
                         $importe=$row2['vimporte'];
 
                         $viaje=new Viaje();
