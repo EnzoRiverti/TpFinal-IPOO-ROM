@@ -18,7 +18,7 @@ class Pasajero{
         $this->nroDni = "";
         $this->telefono = "";
         $this->objViaje = "";
-		$this->idViaje = "";
+		
     }
 
     public function cargar($nombre, $apellido, $nroDni, $telefono, $objViaje){		

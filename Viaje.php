@@ -80,12 +80,8 @@ class Viaje{
     public function setImporte($importe){
         $this->importe = $importe;
     }
-    public function getIdEmpresa(){
-        return $this->idEmpresa;
-    }
-    public function setIdEmpresa($idEmpresa){
-        $this->idEmpresa = $idEmpresa;
-    }
+   
+    
     public function getEmpresa(){
         return $this->empresa;
     }
@@ -162,13 +158,11 @@ class Viaje{
             if($base->Iniciar()){
                 if($base->Ejecutar($consultaViaje)){
                     if($row2=$base->Registro()){					
-                        $this->setIdViaje($idViaje);
-                        $this->setDestino($row2['vdestino']);
-                        $this->setCantMax($row2['vcantmaxpasajeros']);
-                        $this->setIdEmpresa($row2['idempresa']);
-                        $this->setResponsable($row2['rnumeroempleado']);
-                        $this->setImporte($row2['vimporte']);
-                        $this->cargar($idViaje,$row2['vdestino'], $row2['vcantmaxpasajeros'],$row2['idempresa'],['rnumeroempleado'],['vimporte']);
+                        $objEmpresa = new Empresa();
+                        $objEmpresa->buscar($row2['idempresa']);
+                        $objResponsable = new Responsable;
+                        $objResponsable->buscar($row2['rnumeroempleado']);
+                        $this->cargar($idViaje, $row2['vdestino'], $row2['vcantmaxpasajeros'], $objResponsable,$row2['vimporte']);
                         $resp= true;
                     }				
                 
@@ -261,14 +255,14 @@ class Viaje{
                         $idViaje=$row2['idviaje'];
                         $destino=$row2['vdestino'];
                         $cantMax=$row2['vcantmaxpasajeros'];
-                        $idEmpresa = new Empresa();
-                        $idEmpresa->buscar($row2['idempresa']);
+                        $empresa = new Empresa();
+                        $empresa->buscar($row2['idempresa']);
                         $responsable = new Responsable();
                         $responsable->buscar($row2['rnumeroempleado']);
                         $importe=$row2['vimporte'];
 
                         $viaje=new Viaje();
-                        $viaje->cargar($idViaje, $destino, $cantMax, $idEmpresa, $responsable, $importe);
+                        $viaje->cargar($idViaje, $destino, $cantMax, $empresa, $responsable, $importe);
                         array_push($arregloViaje,$viaje);
         
                     }
